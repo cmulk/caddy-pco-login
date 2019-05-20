@@ -1,0 +1,11 @@
+version: '2'
+services:
+ web:
+  image: caddy:planningcenter
+  build: github.com/cmulk/caddylogin-planningcenter
+  volumes:
+   - ./html:/html
+   - ./Caddyfile:/etc/Caddyfile 
+  ports:
+   - 80:80
+
