@@ -14,6 +14,8 @@ RUN sh /usr/bin/builder.sh
 
 FROM alpine
 
+RUN apk --no-cache add ca-certificates
+
 COPY --from=builder /install/caddy /usr/bin/caddy
 
 ENTRYPOINT ["caddy"]
