@@ -1,0 +1,29 @@
+:80 {
+
+ root /html
+
+ redir {
+  if {path} is /
+  / /login/planningcenter
+ }
+
+ jwt  {
+  path /priv
+  # Allow access based on Organization ID and People permissions
+  allow groups <YOUR_ORG_ID>|Editor
+  allow groups <YOUR_ORG_ID>|Viewer
+  allow groups <YOUR_ORG_ID>|Manager
+  
+  redirect /noauth.html
+  
+ }
+
+ login {
+  planningcenter client_id=<YOUR_CLINET_ID>,client_secret=<YOUR_CLIENT_SECRET>,scope=people
+  success_url /priv
+  
+  # FOR TESTING ONLY - delete this and use HTTPS in the real world
+  cookie_secure false
+ }
+
+}
