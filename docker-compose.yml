@@ -1,8 +1,7 @@
 version: '2'
 services:
  web:
-  image: caddy:planningcenter
-  build: github.com/cmulk/caddylogin-planningcenter
+  image: cmulk/caddy-pco-login
   volumes:
    - ./html:/html
    - ./Caddyfile:/etc/Caddyfile 
