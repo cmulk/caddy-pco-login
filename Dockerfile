@@ -1,12 +1,15 @@
 FROM abiosoft/caddy:builder as builder
 
-ENV PLUGINS cache,jwt
-ENV VERSION 1.0.0
+ENV PLUGINS login,jwt
+ENV VERSION 1.0.1
+ENV ENABLE_TELEMETRY false
 
-RUN mkdir -p /plugins
-
-RUN printf "package main\nimport _ \"github.com/cmulk/loginsrv-planningcenter/caddy\"" > \
-	/plugins/login-planningcenter.go
+# Use go.mod replace to import patched login plugin with planning center support
+RUN mkdir -p /caddy && \
+    cd /caddy && \
+    go mod init caddy && \
+    echo "replace github.com/tarent/loginsrv => github.com/cmulk/loginsrv-planningcenter v1.3.1-pc" >> go.mod && \
+    cd /go
 
 
 RUN sh /usr/bin/builder.sh
